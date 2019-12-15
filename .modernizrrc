@@ -1,0 +1,10 @@
+{
+  "minify": true,
+  "options": [],
+  "feature-detects": [
+    "css/gradients",
+    "css/transforms",
+    "test/storage/localstorage",
+    "test/storage/sessionstorage"
+  ]
+}

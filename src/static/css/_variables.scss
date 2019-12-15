@@ -1,0 +1,20 @@
+$tension_green: rgb(102, 201, 137);
+$bg_blue: #0b5a9c;
+
+// $tension_green: shade( $tension_green, 56 );
+$bg_blue: shade( $bg_blue, 56 );
+
+$card_border_radius: 2px;
+$card_border_radius: 0.125rem;
+$card_border_radius: 0.125em;
+
+$card_box_shadow: 0 2px 5px 0 rgba(#000,0.16), 0 2px 10px 0 rgba(#000,0.12);
+
+$header_height: 56px;
+$sidebar_width: 240px;
+
+// @link: https://ricostacruz.com/til/css-media-query-breakpoints
+$breakpoint_mobile_portrait: 480px;
+$breakpoint_mobile_landscape: 786px;
+$breakpoint_tablet_portrait: 992px;
+$breakpoint_tablet_landscape: 1200px;

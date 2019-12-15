@@ -1,0 +1,100 @@
+.page{
+	position:fixed;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	overflow:auto;
+	color:shade( $bg_blue, 88 );
+	// background-color: $bg_blue;
+	background-color: tint( $bg_blue, 88 );
+}
+
+.page-header{
+
+	position:absolute;
+	display:block;
+	z-index:+1;
+	top:0;
+	left:0;
+	right:0;
+	color:rgba(#fff, 0.95);
+	background-color: tint( $bg_blue, 88 );
+	@include box-shadow( $card_box_shadow );
+
+	.header{
+		height:$header_height;
+		color:rgba(#fff, 0.75);
+		background-color: $bg_blue;			
+
+		.logout{
+			position:relative;
+			float:right;
+			padding:0 16px;
+			height:$header_height;
+			line-height:$header_height;
+		}
+	}
+
+	a{
+
+		color:rgba(#fff, 0.7);
+		text-decoration:none;
+
+		&:hover{
+			color:#fff;
+		}
+	}
+}
+
+.page-sidebar{
+
+	position:absolute;
+	top:$header_height;
+	left:0;
+	bottom:0;
+	overflow:auto;
+	overflow-x:hidden;
+
+	display:block;
+	color:rgba(#fff, 0.95);
+	background-color: shade( $bg_blue, 48 );
+	
+	padding-bottom:56px;
+
+	.sidebar{
+		width:$sidebar_width;
+	}
+
+	a{
+		color:rgba(#fff, 0.7);
+		text-decoration:none;
+
+		&:hover{
+			color:#fff;
+		}
+	}	
+}
+
+.page-content{
+
+	position:absolute;
+	display:block;
+	top:$header_height;
+	left:$sidebar_width;
+	right:0;
+	bottom:0;
+	overflow: auto;
+
+	h1{	// @todo: Only temporarily properties usage;
+		margin:24px 16px 16px;
+	}
+
+	.content{;
+		position:relative;
+		float:left;
+		width:100%;
+		padding:0 24px 56px;
+	}
+	
+}
