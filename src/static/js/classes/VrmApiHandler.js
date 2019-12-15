@@ -30,7 +30,7 @@ function VrmApiHandler(loginCallback, logoutCallback, installationsCallback, ins
     function fetchInstallations(){
 
         if (null !== fetched.installations) {
-            return
+            return;
         }
 
         if ( ! auth.isLoggedIn() ) {
@@ -63,14 +63,18 @@ function VrmApiHandler(loginCallback, logoutCallback, installationsCallback, ins
         args_str = args_arr.join("&");
         args_str = "?" + args_str;
 
-        $.ajax({
+        getRequest( api_url.installations_data( site_id, args_str), { headers: { "X-Authorization" : "Bearer " + auth.getToken() } }, false, function(response ){
+            onFetchInstallationData(response, site_id);
+        }, onRequestFail );
+
+        /*$.ajax({
             "method": "GET",
             "url": api_url.installations_data( site_id, args_str),
             "headers": { "X-Authorization": "Bearer " + auth.getToken() }
         })
         .done( function(data, textStatus, jqxhr ){
             onFetchInstallationData(data, textStatus, jqxhr, site_id);
-        }).fail( onRequestFail );
+        }).fail( onRequestFail );*/
     }
 
     function onFetchInstallations(response){
@@ -82,12 +86,12 @@ function VrmApiHandler(loginCallback, logoutCallback, installationsCallback, ins
         }
     }
 
-    function onFetchInstallationData(data, textStatus, jqxhr, site_id){
+    function onFetchInstallationData(response, site_id){
 
-        fetched.installations_data[ site_id ] = data;
+        fetched.installations_data[ site_id ] = response.data;
 
         if( 'function' === typeof installationDataCallback ){
-            installationDataCallback( site_id, data );
+            installationDataCallback( site_id, response.data );
         }
     }
 

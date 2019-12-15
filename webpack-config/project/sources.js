@@ -23,6 +23,7 @@ module.exports = {
         ],
         // scripts: [ 'https://d3js.org/d3.v5.min.js' ],
         scripts: [
+            'https://www.gstatic.com/charts/loader.js',
             '//d3js.org/d3.v3.min.js',
             '//labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js',
         ],

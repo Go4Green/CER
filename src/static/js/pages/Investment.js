@@ -8,185 +8,226 @@ import Content from './_Content';
 
 class Investment extends _PageComponent {
 
-	constructor(props){
-		
-		super(props);
+    constructor(props) {
 
-		this.state = {
-			visibleOptions: true,
-			visiblePaymentOption: false,
-			visibleMetering: false,
-			visibleNetMetering: false,
-			productionEstimation: "AverageGreece",
-	    	valueOf_Production: 0,
-	    	valueOf_Dimension: 0,
-			valueOf_Size: 0,
-			valueOf_Cost: 0,
-			valueOf_CostkWp: 1000,
-		    valueOf_AreakWp: 10,
-		    valueOf_AveragekWp: 1500,
-		    display_parameters: false,
-		};
+        super(props);
 
-		this.state.valueOf_Production = this.state.valueOf_Dimension * this.state.valueOf_AveragekWp;
+        this.state = {
+            visibleOptions: true,
+            visiblePaymentOption: false,
+            visibleMetering: false,
+            visibleNetMetering: false,
+            productionEstimation: "AverageGreece",
+            valueOf_Production: 0,
+            valueOf_Dimension: 0,
+            valueOf_Size: 0,
+            valueOf_Cost: 0,
+            valueOf_CostkWp: 1000,
+            valueOf_AreakWp: 10,
+            valueOf_AveragekWp: 1500,
+            display_parameters: false,
+            valueOf_PricekWh: "0.11056",
+            valueOf_PriceGrid: "0.05054",
+            valueOf_HouseConsumption: "3758",
+            valueOf_PercentageSC: "35",
+            valueOf_YearRevenue: void 0, 
+            valueOf_PaybackPeriod: void 0,
+            valueOf_RelationPC: void 0,
+        };
 
-		this.onClickCapital = this.onClickCapital.bind(this);
-		this.onClickLand = this.onClickLand.bind(this);
-		this.onClickSize = this.onClickSize.bind(this);
-		this.onClickInvestment = this.onClickInvestment.bind(this);
-		this.onClickSelfConsumption = this.onClickSelfConsumption.bind(this);
-		this.onClickToGrid = this.onClickToGrid.bind(this);
-		this.onClickNetMetering = this.onClickNetMetering.bind(this);
-		this.onClickVirtualNetMetering = this.onClickVirtualNetMetering.bind(this);
-		this.netMeteringCalc = this.netMeteringCalc.bind(this);
-		this.onProductionEstimationChange = this.onProductionEstimationChange.bind(this);
-		this.onClickDisplayParameters = this.onClickDisplayParameters.bind(this);
-		this.calcRevenue = this.calcRevenue.bind(this);
-	}
+        this.state.valueOf_Production = this.state.valueOf_Dimension * this.state.valueOf_AveragekWp;
 
-	/************************/
+        this.onClickCapital = this.onClickCapital.bind(this);
+        this.onClickLand = this.onClickLand.bind(this);
+        this.onClickSize = this.onClickSize.bind(this);
+        this.onClickInvestment = this.onClickInvestment.bind(this);
+        this.onClickSelfConsumption = this.onClickSelfConsumption.bind(this);
+        this.onClickToGrid = this.onClickToGrid.bind(this);
+        this.onClickNetMetering = this.onClickNetMetering.bind(this);
+        this.onClickVirtualNetMetering = this.onClickVirtualNetMetering.bind(this);
+        this.netMeteringCalc = this.netMeteringCalc.bind(this);
+        this.onProductionEstimationChange = this.onProductionEstimationChange.bind(this);
+        this.onClickDisplayParameters = this.onClickDisplayParameters.bind(this);
+        this.calcRevenue = this.calcRevenue.bind(this);
+    }
 
-	onClickCapital(){
-		console.info("Clicked capital");
-	}
+    /************************/
 
-    onClickLand(){
-		console.info("Clicked land");
-	}
+    onClickCapital() {
+        console.info("Clicked capital");
+    }
 
-    onClickSize(){
-		console.info("Clicked size");
-	}
+    onClickLand() {
+        console.info("Clicked land");
+    }
 
-    onClickInvestment(){
-		this.setState({
-			visibleOptions: false,
-			visiblePaymentOption: true,
-		});
-	}
+    onClickSize() {
+        console.info("Clicked size");
+    }
 
-	/************************/
+    onClickInvestment() {
+        this.setState({
+            visibleOptions: false,
+            visiblePaymentOption: true,
+        });
+    }
 
-	onClickSelfConsumption(){
-		this.setState({
-			visibleMetering: true,
-			visiblePaymentOption: false,
-		});
-	}
+    /************************/
 
-    onClickToGrid(){
-    	console.info("Clicked to grid");
-	}
+    onClickSelfConsumption() {
+        this.setState({
+            visibleMetering: true,
+            visiblePaymentOption: false,
+        });
+    }
 
-	/************************/
+    onClickToGrid() {
+        console.info("Clicked to grid");
+    }
 
-	onClickNetMetering(){
-		this.setState({
-			visibleNetMetering: true,
-		});
-	}
+    /************************/
 
-	onClickVirtualNetMetering(){
-		console.info("Clicked virtual net metering");
-	}
+    onClickNetMetering() {
+        this.setState({
+            visibleNetMetering: true,
+        });
+    }
 
-	/************************/
+    onClickVirtualNetMetering() {
+        console.info("Clicked virtual net metering");
+    }
 
-	netMeteringCalc(event){
-		
-		let dimension_val = null;
-		let cost_val = null;
-		let size_val = null;
+    /************************/
 
-		let prev_dimension_val = this.state.valueOf_Dimension;
-		let prev_cost_val = this.state.valueOf_Cost;
-		let prev_size_val = this.state.valueOf_Size;
-		let prev_areakWp_val = this.state.valueOf_AreakWp;
-		let prev_costkWp_val = this.state.valueOf_CostkWp;
-		
-		switch( event.target.id ){
-			case "Dimension":
-				dimension_val = 1 *event.target.value.trim();
-				size_val = prev_areakWp_val * dimension_val;
-				cost_val = prev_costkWp_val * dimension_val;
-				break;
-			case "Size":
-				size_val = 1 * event.target.value.trim();
-				dimension_val = size_val ? event.target.value / prev_areakWp_val : prev_dimension_val;
-				cost_val =  size_val ? prev_costkWp_val * ( size_val / prev_areakWp_val ) : prev_costkWp_val;
-				break;
-			case "Cost":
-				cost_val = 1 * event.target.value.trim();
-				dimension_val = cost_val ? cost_val / prev_costkWp_val : prev_dimension_val;
-				size_val = cost_val ? prev_areakWp_val * ( cost_val / prev_costkWp_val ) : prev_size_val;
-				break;
-		}
+    netMeteringCalc(event) {
 
-		this.setState({
-			valueOf_Dimension: 0 + dimension_val,
-			valueOf_Size: 0 + size_val,
-			valueOf_Cost: 0 + cost_val,
-		}, function(){
-			this.updateValueOf_Production();
-		});
-	}
+        let dimension_val = null;
+        let cost_val = null;
+        let size_val = null;
 
-	/************************/
+        let prev_dimension_val = this.state.valueOf_Dimension;
+        let prev_cost_val = this.state.valueOf_Cost;
+        let prev_size_val = this.state.valueOf_Size;
+        let prev_areakWp_val = this.state.valueOf_AreakWp;
+        let prev_costkWp_val = this.state.valueOf_CostkWp;
 
-	onProductionEstimationChange( event ){
-		this.setState({
-			productionEstimation: event.target.value
-		},
-		function(){
-			this.updateValueOf_Production();
-		});
-	}
+        switch (event.target.id) {
+            case "Dimension":
+                dimension_val = 1 * event.target.value.trim();
+                size_val = prev_areakWp_val * dimension_val;
+                cost_val = prev_costkWp_val * dimension_val;
+                break;
+            case "Size":
+                size_val = 1 * event.target.value.trim();
+                dimension_val = size_val ? event.target.value / prev_areakWp_val : prev_dimension_val;
+                cost_val = size_val ? prev_costkWp_val * (size_val / prev_areakWp_val) : prev_costkWp_val;
+                break;
+            case "Cost":
+                cost_val = 1 * event.target.value.trim();
+                dimension_val = cost_val ? cost_val / prev_costkWp_val : prev_dimension_val;
+                size_val = cost_val ? prev_areakWp_val * (cost_val / prev_costkWp_val) : prev_size_val;
+                break;
+        }
 
-	updateValueOf_Production(){
-		
-		if( "AverageGreece" === this.state.productionEstimation ){
+        this.setState({
+            valueOf_Dimension: 0 + dimension_val,
+            valueOf_Size: 0 + size_val,
+            valueOf_Cost: 0 + cost_val,
+        }, function() {
+            this.updateValueOf_Production();
+        });
+    }
 
-			console.log( this.state.valueOf_Dimension, this.state.valueOf_AveragekWp );
+    /************************/
 
-			this.setState({
-				valueOf_Production: this.state.valueOf_Dimension * this.state.valueOf_AveragekWp
-			});
-		}
-	}
+    onProductionEstimationChange(event) {
+        this.setState({
+                productionEstimation: event.target.value
+            },
+            function() {
+                this.updateValueOf_Production();
+            });
+    }
 
-	/************************/
+    updateValueOf_Production() {
+    	
+    	if ("AverageGreece" === this.state.productionEstimation) {
+            this.setState({
+                valueOf_Production: this.state.valueOf_Dimension * this.state.valueOf_AveragekWp
+            }, function(){
+            	this.onCalcRevenue();
+            });
+        }
+        else{
+        	this.onCalcRevenue();
+        }
+    }
 
-	onClickDisplayParameters(event){
-		this.setState({
-			display_parameters: ! this.state.display_parameters,
-		});
-	}
+    /************************/
 
-	calcRevenue(){
-		var pricekWh=1*document.getElementById("PricekWh").value;
-		var priceGrid=1*document.getElementById("PriceGrid").value;
-		var houseCons=1*document.getElementById("HouseConsumption").value;
-		var production=1*document.getElementById("Production").value;
-		var relationPC=(houseCons/production).toFixed(2)*100;
+    onClickDisplayParameters(event) {
+        this.setState({
+            display_parameters: !this.state.display_parameters,
+        });
+    }
 
-		var cost=1*document.getElementById("Cost").value;
-		document.getElementById("Percentage").innerHTML=document.getElementById("PercentageSC").value;
-		var percent=(0+document.getElementById("PercentageSC").value)/100;
-		document.getElementById("RelationPC").value=relationPC;
-		if (relationPC<80){
-			document.getElementById("Warning").style.visibility="visible";
-		}
-		else if (relationPC<100) {
+    onCalcRevenue(){
 
-		}
-		else{
+        var pricekWh = this.state.valueOf_PricekWh;
+        var priceGrid = this.state.valueOf_PriceGrid;
+        var houseCons = this.state.valueOf_HouseConsumption;
+        var production = this.state.valueOf_Production;
 
-			var yearlyRevenue=production*(pricekWh+(percent)*priceGrid);
-			document.getElementById("YearRevenue").value=yearlyRevenue.toFixed(2);
-			console.log(cost);
-			document.getElementById("PaybackPeriod").value=(cost/(yearlyRevenue.toFixed(2))).toFixed(1);
-		}
-	}
+        production = !! production ? 1 * production : 0;
+        priceGrid = !! priceGrid ? 1 * priceGrid : 0;
+        pricekWh = !! pricekWh ? 1 * pricekWh : 0;
+
+        var relationPC = 100 * ( ( houseCons || 0 ) / ( production || 1 ) ).toFixed(2);
+        var cost = this.state.valueOf_Cost;
+
+        var percent = ( this.state.valueOf_PercentageSC || 0 ) / 100;
+
+        if (relationPC < 80) {
+
+        	this.setState({
+	        	valueOf_RelationPC: relationPC,
+	        }, function(){
+	        	document.getElementById("Warning").style.visibility = "visible";
+	        });
+
+        } else {
+
+        	var yearlyRevenue = production * (pricekWh + ( percent * priceGrid ) );
+
+        	// console.log( yearlyRevenue, production, pricekWh, percent, priceGrid );
+
+        	this.setState({
+        		valueOf_RelationPC: relationPC,
+        		valueOf_YearRevenue: yearlyRevenue.toFixed(2), 
+            	valueOf_PaybackPeriod: (cost / (yearlyRevenue.toFixed(2))).toFixed(1),
+        	});
+        }
+
+        
+
+        // document.getElementById("RelationPC").value = ;
+    }
+
+    calcRevenue( event ) {
+
+    	switch( event.target.id ){
+    		case "PercentageSC":
+    			this.setState({
+		    		valueOf_PercentageSC: 1 * event.target.value 
+		    	}, this.onCalcRevenue );
+    			break;
+    		case "HouseConsumption":
+    			this.setState({
+		    		valueOf_HouseConsumption: event.target.value 
+		    	}, this.onCalcRevenue );
+    			break;
+    	}
+    }
 
     render() {
 
@@ -254,7 +295,8 @@ class Investment extends _PageComponent {
 
 				    </div> : null }
 
-				    <div id="Revenues">
+				    { this.state.visibleNetMetering ? <div id="Revenues">
+
 					      Επιλογή Παρόχου:
 					      <select id="Provider" value={"DEI"} onChange={ this.calcRevenue }>
 					        <option value="DEI">ΔΕΗ</option>
@@ -265,6 +307,7 @@ class Investment extends _PageComponent {
 					        <option value="Zenith">Ζενίθ</option>
 					      </select>
 					      <br/>
+					      
 					      Επιλογή είδους Τιμολογίου:
 					      <select id="Type" value={"G1"} onChange={ this.calcRevenue }>
 					        <option value="G1">Γ1</option>
@@ -277,20 +320,24 @@ class Investment extends _PageComponent {
 					        <option value="G21">ΒΥ</option>
 					      </select>
 					      <br/>
-					      Χρεώσεις Προμήθειας: <input type="number" id="PricekWh" value="0.11056" readOnly />&euro;/kWh<br/>
-					      Ρυθμιζόμενες Χρεώσεις: <input type="number" id="PriceGrid" value="0.05054" readOnly />&euro;/kWh<br/>
-					      Εκτιμώμενη Ετήσια Κατανάλωση: <input type="number" id="HouseConsumption" value="3758" onChange={ this.calcRevenue } />kWh<br/>
 
-					      Σχέση Εκτιμώμενης Κατανάλωσης-Παραγωγής: <input type="number" id="RelationPC" value="" readOnly />%<br/>
+					      Χρεώσεις Προμήθειας: <input type="number" id="PricekWh" value={ this.state.valueOf_PricekWh } readOnly />&euro;/kWh<br/>
+					      Ρυθμιζόμενες Χρεώσεις: <input type="number" id="PriceGrid" value={ this.state.valueOf_PriceGrid } readOnly />&euro;/kWh<br/>
+					      Εκτιμώμενη Ετήσια Κατανάλωση: <input type="number" id="HouseConsumption" value={ this.state.valueOf_HouseConsumption } onChange={ this.calcRevenue } />kWh<br/>
+
+					      Σχέση Εκτιμώμενης Κατανάλωσης-Παραγωγής: <input type="number" id="RelationPC" defaultValue={ this.state.valueOf_RelationPC } readOnly />%<br/>
+					      
 					      <div id="Warning" style={{ visibility: "hidden" }}> Προειδοποίηση!!! Η παραγωγή είναι πολύ μεγαλύτερη από την κατανάλωση... <br/>
 					        Μέγιστο περιθώριο πώλησης στο δίκτυο --> 20% της παραγωγής!
 					      </div>
-					      Ποσοστό Ιδιοκατανάλωσης: <input type="range" id="PercentageSC" value="35" min="0" max="100" onChange={ this.calcRevenue } /><span id="Percentage"> 35</span>%<br/>
-					      Κέρδος ανά έτος: <input type="number" readOnly id="YearRevenue" />&euro; <br/>
-					      Περίοδος Αποπληρωμής: <input type="number" placeholder="Έτη" id="PaybackPeriod" readOnly />έτη<br/>
+					      
+					      Ποσοστό Ιδιοκατανάλωσης: <input type="range" id="PercentageSC" value={ this.state.valueOf_PercentageSC } min="0" max="100" onChange={ this.calcRevenue } /><span id="Percentage"> { this.state.valueOf_PercentageSC }</span>%<br/>
 
+					      Κέρδος ανά έτος: <input type="number" id="YearRevenue" defaultValue={ this.state.valueOf_YearRevenue } readOnly />&euro; <br/>
 
-					  </div>
+					      Περίοδος Αποπληρωμής: <input type="number" placeholder="Έτη" defaultValue={ this.state.valueOf_PaybackPeriod } id="PaybackPeriod" readOnly />έτη<br/>
+					      
+					  </div> : null }
 
 				</Content>;
     }
