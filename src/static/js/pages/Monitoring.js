@@ -192,13 +192,13 @@ class Monitoring extends _PageComponent {
                 break;
         }
 
-      // this.requestsHandler.rerun();
-      this.requestsHandler = requestsHandler();
+        this.requestsHandler = requestsHandler();
     }
 
     render() {
         return <Content>
-					{/*<h1>{ ApplicationStore.get('title') }</h1>*/}
+					
+                    <h1>{ ApplicationStore.get('title') }</h1>
                     
                     <div id="ContainerDates">
                         
@@ -213,8 +213,8 @@ class Monitoring extends _PageComponent {
 
                     </div>
 
-                    {/*<div id="curve_chart" style="width: 1000px; height: 500px; margin-right:auto; margin-left:auto;"></div>*/}
-                    <div id="curve_chart"></div>
+                    {/*<div id="curve_chart" style={ width: "100%", height: "500px"; margin-right:auto; margin-left:auto }></div>*/}
+                    {<div id="curve_chart"></div>}
 
                     {/*<Chart1/>
                     <Chart2/>*/}

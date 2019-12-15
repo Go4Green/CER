@@ -274,3 +274,94 @@
         // min-height:18px;
     }
 }
+
+#Curves,
+#ModuleCurves{
+
+    position:relative;
+    float:left;
+    width:100%;
+    margin-bottom:32px;
+
+    > div{
+        
+        position:relative;
+        width:50%;
+        float:left;
+
+        &:last-child{
+            float:right;
+        }
+
+        img{
+
+            width:100%;
+
+            &:first-child{
+                position:absolute;
+                top:0;
+                left:0;
+            }
+
+            &:last-child{
+                margin-left:16px;
+            }
+        }
+    }
+}
+
+#IRR, #TEM{
+    position:relative;
+    float:left;
+    width:50%;
+    margin-bottom:16px;
+}
+
+#Module-Shading{
+    position:relative;
+    float:left;
+    width:100%;
+}
+
+#LevelShading{
+    position:relative;
+    width:40%;
+    float:left;
+}
+
+#myCanvas{
+    
+    position:relative;
+    width:60%;
+    float:left;
+}
+
+#ModuleIVPV{
+    position:relative;
+    float:left;
+    width:100%;
+    margin-top:32px;
+}
+
+button{
+    margin-right: 16px;
+    margin-bottom:8px;
+    padding-left:6px;
+    padding-right:6px;
+}
+
+input,
+select{
+    margin-right: 8px;
+    margin-left: 8px;    
+    margin-bottom:8px;
+}
+
+#Warning{
+    margin:16px 0;
+    color:red;
+}
+
+h1{
+    font-size:29px;
+}

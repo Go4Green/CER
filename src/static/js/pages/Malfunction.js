@@ -368,6 +368,10 @@ class Malfunction extends _PageComponent {
 
 	componentDidMount(){
 		this.graphsHandler = graphsHandler();
+		setTimeout(() => {
+			this.graphsHandler.ResizeCanvas(null);
+		}, 500);
+		
 	}
 
 	GetCurve(){
@@ -384,8 +388,12 @@ class Malfunction extends _PageComponent {
 
     render() {
         return <Content>
-					{/*<h1>{ ApplicationStore.get('title') }</h1>*/}
-					<div>
+
+
+					<h1>{ ApplicationStore.get('title') }</h1>
+					<br/>
+					
+					<div className="content-row">
 
 
 				      <div className="IV-PVimages" id="CellIVPV">
@@ -393,27 +401,35 @@ class Malfunction extends _PageComponent {
 					        <div id="IRR">
 					          <label htmlFor="Irradiation">Ηλιοφάνεια (W/m<sup>2</sup>):</label>
 					          <input className="UserSlider1" id="Irradiation" type="range" min="0" max="1000" step="10" defaultValue="1000" onInput={ this.GetCurve } onChange={ this.GetCurve } />
-					          <div id="ValueIrradiation"> 1000</div> W/m<sup>2</sup>
+					          <div id="ValueIrradiation"> 1000 W/m<sup>2</sup></div>
 					        </div>
-					        
+
 					        <div id="TEM">
 					          <label htmlFor="Temperature">Θερμοκρασία (<sup>ο</sup>C):</label>
 					          <input className="UserSlider1" id="Temperature" type="range" min="0" max="50" step="5" defaultValue="25" onInput={ this.GetCurve } onChange={ this.GetCurve } />
-					          <div id="ValueTemperature"> 25</div><sup>o</sup> C
+					          <div id="ValueTemperature"> 25<sup>o</sup> C</div>
 					        </div>
 
+					        <br/>
+
 							<div id="Curves">
-					          	<img id="onTop" src="http://localhost:8080/static/Images/Random/LettersIVcell.png" width="50%" />
-					          	<img id="IVcurve" src="http://localhost:8080/static/Images/Matlab/IV_S1.00_T25.png" alt="IV Curve" width="50%" />
-					          	<img id="onTop" src="http://localhost:8080/static/Images/Random/LettersPVcell.png" width="50%" />
-					          	<img id="PVcurve" src="http://localhost:8080/static/Images/Matlab/PV_S1.00_T25.png" alt="PV Curve" width="50%" />
+
+								<div>
+					          		<img id="onTop" src="http://localhost:8080/static/Images/Random/LettersIVcell.png" />
+					          		<img id="IVcurve" src="http://localhost:8080/static/Images/Matlab/IV_S1.00_T25.png" alt="IV Curve" />
+					          	</div>
+
+					          	<div>					          	
+					          		<img id="onTop" src="http://localhost:8080/static/Images/Random/LettersPVcell.png" />
+					          		<img id="PVcurve" src="http://localhost:8080/static/Images/Matlab/PV_S1.00_T25.png" alt="PV Curve" />
+					          	</div>
 					        </div>
 
 				        </div>
 
 					</div>
 					
-					<div>
+					<div className="content-row">
 
 						<img id="Cell" src="http://localhost:8080/static/Images/Random/Cell.png" style={{ display:"none" }} />
 				      	<img id="ActiveDiode" src="http://localhost:8080/static/Images/Random/DiodeActive.png" style={{ display:"none" }} />
@@ -424,7 +440,7 @@ class Malfunction extends _PageComponent {
 				        
 				        <div id="LevelShading">
 				        
-				          Ηλιακή ακτινοβολία σκιασμένων κυψελών:<br/>
+				          Ηλιακή ακτινοβολία σκιασμένων κυψελών:<br/><br/>	
 				          
 				          <input className="UserSlider2" name="SD" id="ShadingDensity1" type="radio" value="0.8" onClick={ this.Stop } defaultChecked />
 				          <label htmlFor="ShadingDensity1" onClick={ this.Stop }> 800W/m<sup>2</sup></label>
@@ -446,10 +462,17 @@ class Malfunction extends _PageComponent {
 
 				      <div className="IV-PVimages" id="ModuleIVPV">
 				        <div id="ModuleCurves">
-				          <img id="onTop" src="http://localhost:8080/static/Images/Random/LettersIVmodule.png" width="50%" />
-				          <img id="MIVcurve" src="http://localhost:8080/static/Images/Matlab/IVM_S1_1.00_S2_1.00_S_31.00.png" alt="IV Curve" width="50%" />
-				          <img id="onTop" src="http://localhost:8080/static/Images/Random/LettersPVmodule.png" width="50%" />
-				          <img id="MPVcurve" src="http://localhost:8080/static/Images/Matlab/PVM_S1_1.00_S2_1.00_S_31.00.png" alt="PV Curve" width="50%" />
+
+				        	<div>
+				          		<img id="onTop" src="http://localhost:8080/static/Images/Random/LettersIVmodule.png" width="50%" />
+				          		<img id="MIVcurve" src="http://localhost:8080/static/Images/Matlab/IVM_S1_1.00_S2_1.00_S_31.00.png" alt="IV Curve" width="50%" />
+				          	</div>
+
+				          	<div>
+				          		<img id="onTop" src="http://localhost:8080/static/Images/Random/LettersPVmodule.png" width="50%" />
+				          		<img id="MPVcurve" src="http://localhost:8080/static/Images/Matlab/PVM_S1_1.00_S2_1.00_S_31.00.png" alt="PV Curve" width="50%" />
+				          	</div>
+
 				        </div>
 				      </div>
 
