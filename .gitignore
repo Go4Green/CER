@@ -56,7 +56,7 @@ yarn.lock
 package-lock.json
 
 
-./src/static/Images
-./src/static/csv
-./src/static/tsv
-./src/static/pvgis.html
+/src/static/Images
+/src/static/csv
+/src/static/tsv
+/src/static/pvgis.html

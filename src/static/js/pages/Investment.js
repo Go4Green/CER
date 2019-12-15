@@ -94,54 +94,41 @@ class Investment extends _PageComponent {
 
 	netMeteringCalc(event){
 		
-		// console.warn("Metering calculation....", event.target.value, event.target.id);
+		let dimension_val = null;
+		let cost_val = null;
+		let size_val = null;
 
-		/*if( "Production" === event.target.id ){
-			
-			this.setState({
-				valueOf_Production: event.target.value,
-				valueOf_Production: this.state.productionEstimation ? this.state.valueOf_Dimension * this.state.valueOf_AveragekWp : this.state.,
-			});
+		let prev_dimension_val = this.state.valueOf_Dimension;
+		let prev_cost_val = this.state.valueOf_Cost;
+		let prev_size_val = this.state.valueOf_Size;
+		let prev_areakWp_val = this.state.valueOf_AreakWp;
+		let prev_costkWp_val = this.state.valueOf_CostkWp;
+		
+		switch( event.target.id ){
+			case "Dimension":
+				dimension_val = 1 *event.target.value.trim();
+				size_val = prev_areakWp_val * dimension_val;
+				cost_val = prev_costkWp_val * dimension_val;
+				break;
+			case "Size":
+				size_val = 1 * event.target.value.trim();
+				dimension_val = size_val ? event.target.value / prev_areakWp_val : prev_dimension_val;
+				cost_val =  size_val ? prev_costkWp_val * ( size_val / prev_areakWp_val ) : prev_costkWp_val;
+				break;
+			case "Cost":
+				cost_val = 1 * event.target.value.trim();
+				dimension_val = cost_val ? cost_val / prev_costkWp_val : prev_dimension_val;
+				size_val = cost_val ? prev_areakWp_val * ( cost_val / prev_costkWp_val ) : prev_size_val;
+				break;
+		}
 
-		}	
-		else{*/
-			let dimension_val = null;
-			let cost_val = null;
-			let size_val = null;
-
-			let prev_dimension_val = this.state.valueOf_Dimension;
-			let prev_cost_val = this.state.valueOf_Cost;
-			let prev_size_val = this.state.valueOf_Size;
-			let prev_areakWp_val = this.state.valueOf_AreakWp;
-			let prev_costkWp_val = this.state.valueOf_CostkWp;
-
-
-			switch( event.target.id ){
-				case "Dimension":
-					dimension_val = 1 *event.target.value.trim();
-					size_val = prev_areakWp_val * dimension_val;
-					cost_val = prev_costkWp_val * dimension_val;
-					break;
-				case "Size":
-					size_val = 1 * event.target.value.trim();
-					dimension_val = size_val ? event.target.value / prev_areakWp_val : prev_dimension_val;
-					cost_val =  size_val ? prev_costkWp_val * ( size_val / prev_areakWp_val ) : prev_costkWp_val;
-					break;
-				case "Cost":
-					cost_val = 1 * event.target.value.trim();
-					dimension_val = cost_val ? cost_val / prev_costkWp_val : prev_dimension_val;
-					size_val = cost_val ? prev_areakWp_val * ( cost_val / prev_costkWp_val ) : prev_size_val;
-					break;
-			}
-
-			this.setState({
-				valueOf_Dimension: 0 + dimension_val,
-				valueOf_Size: 0 + size_val,
-				valueOf_Cost: 0 + cost_val,
-			}, function(){
-				this.updateValueOf_Production();
-			});
-		// }
+		this.setState({
+			valueOf_Dimension: 0 + dimension_val,
+			valueOf_Size: 0 + size_val,
+			valueOf_Cost: 0 + cost_val,
+		}, function(){
+			this.updateValueOf_Production();
+		});
 	}
 
 	/************************/
